@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Audio Downloader",
+  "version": "2.0",
+  "description": "Tải Audio Read Aloud trên ChatGPT và quản lý lịch sử tải trong phiên làm việc.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://chatgpt.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Lịch sử tải Audio",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://chatgpt.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "inject.js"
+      ],
+      "matches": [
+        "*://chatgpt.com/*"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatGPT Audio</title>
+    <style>
+        body {
+            width: 320px;
+            margin: 0;
+            padding: 16px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7f7f8;
+            color: #353740;
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 16px;
+            color: #10a37f;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #e5e5e5;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+        .header-icon {
+            width: 24px;
+            height: 24px;
+            fill: #10a37f;
+        }
+        .audio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+        /* Custom scrollbar */
+        .audio-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .audio-list::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        .audio-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+        .audio-item:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            border-color: #10a37f;
+        }
+        .info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            flex: 1;
+            margin-right: 12px;
+        }
+        .filename {
+            font-size: 13px;
+            font-weight: 600;
+            color: #202123;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .time {
+            font-size: 11px;
+            color: #6e6e80;
+            margin-top: 4px;
+        }
+        .btn-download {
+            background-color: #10a37f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .btn-download:hover {
+            background-color: #0e906f;
+        }
+        .empty {
+            text-align: center;
+            color: #6e6e80;
+            font-size: 13px;
+            padding: 30px 0;
+        }
+        .note {
+            font-size: 11px;
+            color: #8e8ea0;
+            margin-top: 16px;
+            text-align: center;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        <svg class="header-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9c0-.28.22-.5.5-.5s.5.22.5.5v9c0 .28-.22.5-.5.5s-.5-.22-.5-.5zm4-6.5v2.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-2.5c0-.28.22-.5.5-.5s-.5.22-.5.5zm-8 4v-5.5c0-.28.22-.5.5-.5s.5.22.5.5v5.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5z"/>
+        </svg> 
+        Audio Downloader
+    </h2>
+    
+    <div class="audio-list" id="audio-list">
+        <div class="empty">Đang tải lịch sử...</div>
+    </div>
+    
+    <div class="note">⚠️ Lịch sử này chỉ lưu các Audio đã tạo trên tab hiện tại.<br/>Dữ liệu sẽ bị reset nếu bạn F5 (tải lại trang).</div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
