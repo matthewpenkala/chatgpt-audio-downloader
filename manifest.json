@@ -1,18 +1,17 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Audio Downloader",
-  "version": "2.0",
-  "description": "Tải Audio Read Aloud trên ChatGPT và quản lý lịch sử tải trong phiên làm việc.",
+  "version": "3.0.0",
+  "description": "Save ChatGPT Read Aloud audio directly from the stream, with progress and playback-independent full downloads.",
   "permissions": [
-    "activeTab",
-    "scripting"
+    "activeTab"
   ],
   "host_permissions": [
-    "*://chatgpt.com/*"
+    "https://chatgpt.com/*"
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Lịch sử tải Audio",
+    "default_title": "ChatGPT Audio Downloader",
     "default_icon": {
       "16": "icon.png",
       "48": "icon.png",
@@ -27,22 +26,25 @@
   "content_scripts": [
     {
       "matches": [
-        "*://chatgpt.com/*"
+        "https://chatgpt.com/*"
+      ],
+      "js": [
+        "capture-core.js",
+        "inject.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://chatgpt.com/*"
       ],
       "js": [
         "content.js"
       ],
+      "world": "ISOLATED",
       "run_at": "document_start"
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "inject.js"
-      ],
-      "matches": [
-        "*://chatgpt.com/*"
-      ]
-    }
-  ]
+  "minimum_chrome_version": "111"
 }
