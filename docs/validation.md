@@ -40,8 +40,14 @@ This directly establishes download completion in about 88 seconds for about 25.5
 
 ## Automated checks and review
 
-Node syntax checks and the Node `node:test` suite are run locally; CI repeats both on Node 22. Tests use native stream/request/response primitives in a VM browser harness. They exercise exact bytes, fetch pass-through, endpoint/signature handling, failures, partial retention, independent signals, cancellations, clearing pending work, duplicate replay, message filtering, idempotence, and capacity limits.
+Node syntax checks and all 32 Node `node:test` checks passed locally (zero failures); CI repeats both on Node 22. Aggregate quota tests scale both byte limits proportionally so the test verifies eviction/capacity behavior without allocating hundreds of megabytes. Tests use native stream/request/response primitives in a VM browser harness. They exercise exact bytes, fetch pass-through, endpoint/signature handling, failures, partial retention, independent signals, cancellations, clearing pending work, duplicate replay, message filtering, idempotence, and capacity limits.
 
 A separate read-only reviewer identified the unread original-branch buffer in full fetches, incomplete cancellation on early full-fetch exits, premature retention eviction, focus loss on row updates, and confusing cancellation text. These were corrected before final publication.
 
 AAC from this current ChatGPT endpoint is the live-supported transport. Helpers for other containers are unit tested, not a claim of live ChatGPT compatibility. End-to-end verification does not establish indefinite compatibility with future private API changes.
+
+## Final-build interruption and recovery
+
+A short-response smoke test after the final behavior changes was interrupted by Chrome's `net::ERR_HTTP2_PROTOCOL_ERROR`, distinct from the intentionally aborted playback request. The extension retained 49,152 bytes as a labeled partial full fetch and did not auto-save an incomplete file. Retrying from that entry succeeded with playback still stopped: 753,839 bytes received in 10.490 seconds and automatically saved. This is evidence of working recovery, not a claim that the extension can prevent server/HTTP2 transport failures. The final UI explicitly labels the recovery action **Retry full download**.
+
+The final Chrome Extensions menu showed **Unpin ChatGPT Audio Downloader**, confirming it remained pinned after updates. The English popup displayed version 3.0.0 and separate complete/partial recordings. Audio samples and screenshots remain local and are not release assets.
